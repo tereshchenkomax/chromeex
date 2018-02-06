@@ -1,18 +1,17 @@
   
   
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+  var parse = document.getElementById("parse");
 
-  var parse = document.getElementById('parse');
-
-  parse.addEventListener('click',() => {
+  parse.addEventListener("click",() => {
     chrome.tabs.executeScript({
-      file: 'content-script.js'
+      file: "content-script.js"
     },
    (results) => {
     console.log(results); 
     });
-  })
+    });
   
 });
 

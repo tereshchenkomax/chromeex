@@ -1,14 +1,10 @@
 (() => {
 
-	// just place a div at top right
-	var div = document.createElement('div');
-	div.style.position = 'fixed';
-	div.style.top = 0;
-	div.style.right = 0;
-	div.textContent = 'Injected!';
-	document.body.appendChild(div);
-	document.getElementsByTagName('div');
-
-	alert('inserted self... giggity');
+	var x = document.querySelectorAll("a[href^='https://trello.com']");
+	var x = document.querySelectorAll("a[href^='https://do.ready-for-feedback.com']");
+	var x = document.querySelectorAll("a[href^='https://trello.com']");
+	var tr = x[0].href;
+	console.log(tr);
+	return tr;
 
 })();
