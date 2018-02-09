@@ -12,10 +12,9 @@
 	
 	for (var i = x.length - 1; i >= 0; i--) {
 		hrefs.push(x[i][0].href);
-		console.log(hrefs);
+		
 	}
-	
-	console.log(x)
-	return x;
+	console.log(hrefs);
+	return hrefs;
 
 })();
