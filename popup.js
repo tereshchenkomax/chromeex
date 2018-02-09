@@ -15,3 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
 });
 
+// (() => {
+//   var x = [];
+//   x[0] = document.querySelectorAll("a[href^='https://trello.com']");
+//   x[1] = document.querySelectorAll("a[href^='https://do.ready-for-feedback.com']");
+//   x[2] = document.querySelectorAll("a[href^='https://trello.com']");
+  
+//   console.log(x);
+//   return x;
+
+// })();
