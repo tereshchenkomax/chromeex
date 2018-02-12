@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		},
 		(results) => {
 			arr = results[0];
+			trello.value = arr[0];
+			ready.value = arr[1];
 		});
 	});
-	trello.innerHTML = arr[0];
+	
 });
