@@ -9,7 +9,7 @@
 		hrefs.push(x[i][0].href);	
 	}
 	hrefs.push(document.getElementById("00NF000000DaF4I_ileinner").outerText);
-	console.log(hrefs);
+	
 	return hrefs;
 
 })();
