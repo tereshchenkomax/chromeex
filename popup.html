@@ -1,9 +1,5 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
+
 <html>
   <head>
     <title>Helper's pop-up</title>
@@ -28,10 +24,9 @@
   </head>
 
   <body>
-    <h1>Choose an option</h1>
+    <h1 id="head">Choose an option</h1>
     <div id="container">
       <button id="parse">Parse</button>
-
       <button id="copy">Copy</button>
     </div>
     <div>
