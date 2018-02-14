@@ -7,16 +7,23 @@
       body {
         margin: 10px;
         white-space: nowrap;
+        min-width: 340px;
       }
 
       h1 {
         font-size: 15px;
       }
 
-      #container {
+      .container {
         align-items: center;
         display: flex;
+        justify-content: space-around;
+      }
+
+      .form {
+        display: flex;
         justify-content: space-between;
+        margin: 4px;
       }
     </style>
 
@@ -25,14 +32,14 @@
 
   <body>
     <h1 id="head">Choose an option</h1>
-    <div id="container">
+    <div class="container">
       <button id="parse">Parse</button>
       <button id="copy">Copy</button>
     </div>
     <div>
-      <div><input type="text" id="trello"></div>
-      <div><input type="text" id="ready"></div>
-      <div><input type="text" id="password"></div>
+      <div class="form">Trello<input type="text" id="trello" size="55"></div>
+      <div class="form">Do-ready <input type="text" id="ready" size="55"></div>
+      <div class="form">password<input type="text" id="password"></div>
     </div>
   </body>
 </html>

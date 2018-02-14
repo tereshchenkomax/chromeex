@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	var parse = document.getElementById("parse");
 	var trello = document.getElementById("trello");
 	var ready = document.getElementById("ready");
+	var password = document.getElementById("password");
 	var head = document.getElementById("head");
 	console.log(head);
 	var arr = [];
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					arr = results[0];
 					trello.value = arr[0];
 					ready.value = arr[1];
+					password.value = arr[2];
 				});
 			} else {
 				head.innerHTML = "Open the SF window";

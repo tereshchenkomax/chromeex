@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Get the field in one",
-  "description": "This extension that help to get the info from the SF project to the Template.",
-  "version": "0.1",
+  "description": "This extension helps to get the info from the SF project to the Template.",
+  "version": "0.3",
 
 
   "browser_action": {
@@ -11,10 +11,6 @@
     "default_popup": "popup.html",
     "default_title": "Click here!"
   },
-  // "background": {
-  //   "scripts": ["popup.js"],
-  //   "persistent": false
-  // },
   "permissions": [
     "activeTab",
     "storage",
