@@ -3,7 +3,7 @@
 
   "name": "Get the field in one",
   "description": "This extension helps to get the info from the SF project to the Template.",
-  "version": "0.3",
+  "version": "1.0",
 
 
   "browser_action": {
