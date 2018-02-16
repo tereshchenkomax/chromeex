@@ -49,13 +49,13 @@ Best regards,`;
 					try {
 						var successful = document.execCommand("copy");
 						var msg = successful ? "successful" : "unsuccessful";
-						console.log("Copying text command was " + msg);
+						head.innerHTML = `Copying text command was ${msg}`;
 					} catch (err) {
-						console.log("Oops, unable to copy");
+						head.innerHTML = "Oops, unable to copy";
 					}
 				});
 			} else {
-				head.innerHTML = "Open the SF window";
+				head.innerHTML = "Open the SF window first";
 			}
 		});
 	});
