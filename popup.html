@@ -54,15 +54,24 @@
         width: 300px;
         word-break: break-word;
       }
+
+      #head {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        border: 1px solid black;
+      }
     </style>
 
     <script src="popup.js"></script>
   </head>
 
   <body>
+    <h1 id="head">Open the SF tab</h1>
     <div class="top">
-      <h1 id="head">Open the SF tab</h1>
       <button class="btn" id="parse">Parse and copy</button>
+      <button class="btn" id="copy">Copy for additional</button>
+      <button class="btn" id="paste">Paste(additional)</button>
     </div>
     <div>
       <div class="form"><h4>Trello</h4><input type="text" id="trello" size="50"></div>

@@ -1,13 +1,16 @@
+var arr = [];
+
 document.addEventListener("DOMContentLoaded", () => {
 	var parse = document.getElementById("parse");
+	var copy = document.getElementById("copy");
+	var paste = document.getElementById("paste");
 	var trello = document.getElementById("trello");
 	var ready = document.getElementById("ready");
 	var password = document.getElementById("password");
 	var message = document.getElementById("message");
 	var head = document.getElementById("head");
-	var arr = [];
 	parse.addEventListener("click",() => {
-		chrome.tabs.getSelected(null,function(tab) {
+		chrome.tabs.getSelected(null,(tab) => {
 			var url = tab.url;
 			var testUrl = "https://na43.salesforce.com";
 			if(url.indexOf(testUrl) !== -1) {
@@ -20,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					password.value = arr[2];
 					var text = `Hello {Contact First name},
 
-Your project is completed and ready for review. 
+Your project is completed and ready for review.
 
 In order to review the site, please go to the following link:
 
@@ -55,8 +58,48 @@ Best regards,`;
 					}
 				});
 			} else {
-				head.innerHTML = "Open the SF window first";
+				openSF();
+			}
+		});
+	});
+	copy.addEventListener("click", () => {
+		chrome.tabs.getSelected(null,(tab) => {
+			var url = tab.url;
+			var testUrl = "https://na43.salesforce.com";
+			if(url.indexOf(testUrl) !== -1) {
+				injectScript(null,"copy-script.js");
+			} else {
+				openSF();
+			}
+		});
+	});
+	paste.addEventListener("click", () => {
+		chrome.tabs.getSelected(null,(tab) => {
+			var url = tab.url;
+			var testUrl = "https://na43.salesforce.com";
+			if(url.indexOf(testUrl) !== -1) {
+				injectScript(arr,"paste-script.js");
+			} else {
+				openSF();
 			}
 		});
 	});
 });
+
+function injectScript(param,filename) {
+	chrome.tabs.executeScript({
+		code: `var values = ${JSON.stringify(param)};`
+	}, () => {	
+		chrome.tabs.executeScript({
+			file: filename
+		}, (results) => {
+			arr = results[0];
+			console.log(arr);
+		});
+	});
+}
+function openSF() {
+	head.innerHTML = "Open the SF window first";
+	head.style.color = "red";
+	setTimeout(() => {head.style.color = "black";}, 2000);
+}
