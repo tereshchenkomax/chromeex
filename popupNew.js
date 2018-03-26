@@ -1,5 +1,6 @@
 function varInit() {
 	var parse = $("parse");
+	var sf = $("sf");
 	var copy = $("copy");
 	var paste = $("paste");
 	var trello = $("trello");
@@ -8,12 +9,14 @@ function varInit() {
 	var message = $("message");
 	var head = $("head");
 	var value;
+	var taburl;
 }
 
 function copyAndParse(){
 	parse.addEventListener("click",clickHandlerParse);
 	copy.addEventListener("click",clickHandlerCopy);
 	paste.addEventListener("click",clickHandlerPaste);
+	sf.addEventListener("click",clickHandlerSF);
 }
 
 function clickHandlerParse() {
@@ -57,6 +60,7 @@ Best regards,`;
 				head.innerHTML = `Copying text command was ${msg}`;
 			} catch (err) {
 				head.innerHTML = "Oops, unable to copy";
+				console.log(err);
 			}
 		})
 		.catch((Error) => {
@@ -78,6 +82,26 @@ function clickHandlerPaste() {
 		});
 }
 
+function clickHandlerSF() {
+	checkTheTab(null, "sf-script.js");
+	getFromStorage()
+		.then(()=>{
+			trello.value = value[0];
+			message.value =`${trello.value} ${taburl}`;
+			message.select();
+			try {
+				var successful = document.execCommand("copy");
+				var msg = successful ? "successful" : "unsuccessful";
+				head.innerHTML = `Copying text command was ${msg}`;
+			} catch (err) {
+				head.innerHTML = "Oops, unable to copy";
+				console.log(err);
+			}
+		});
+		
+
+}
+
 function injectScript(variable,filename) {
 	chrome.tabs.executeScript({
 		code: `var values = ${JSON.stringify(variable)};`
@@ -96,9 +120,9 @@ function injectScript(variable,filename) {
 
 function checkTheTab(variable,script) {
 	chrome.tabs.getSelected(null,(tab) => {
-		var url = tab.url;
+		taburl = tab.url;
 		var testUrl = "https://na43.salesforce.com";
-		if(url.indexOf(testUrl) !== -1) {
+		if(taburl.indexOf(testUrl) !== -1) {
 			injectScript(variable,script);
 		} else {
 			openSF();

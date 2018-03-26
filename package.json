@@ -1,0 +1,24 @@
+{
+  "name": "ChromeExSF",
+  "version": "1.0.0",
+  "description": "",
+  "main": "content-script.js",
+  "dependencies": {
+    "eslint": "^4.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tereshchenkomax/chromeex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tereshchenkomax/chromeex/issues"
+  },
+  "homepage": "https://github.com/tereshchenkomax/chromeex#readme"
+}

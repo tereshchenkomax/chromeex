@@ -3,75 +3,23 @@
 <html>
   <head>
     <title>Helper's pop-up</title>
-    <style type="text/css">
-      body {
-        margin: 10px;
-        white-space: nowrap;
-        min-width: 340px;
-      }
-
-      h1 {
-        font-size: 15px;
-      }
-
-      input {
-        height: 2em;
-        align-self: center;
-        margin: 0 2px;
-      }
-
-      .top {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .btn {
-        background: #3498db;
-        background-image: linear-gradient(to bottom, #3498db, #2980b9);
-        -webkit-border-radius: 28;
-        -moz-border-radius: 28;
-        border-radius: 28px;
-        font-family: Georgia;
-        color: #ffffff;
-        font-size: 20px;
-        padding: 10px 20px 10px 20px;
-        text-decoration: none;
-      }
-
-      .btn:hover {
-        background: #3cb0fd;
-        background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-        text-decoration: none;
-      }
-
-      .form {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      #message {
-        height: 200px;
-        width: 300px;
-        word-break: break-word;
-      }
-
-      #head {
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px;
-        border: 1px solid black;
-      }
-    </style>
-
+    <link rel="stylesheet" href="styles.css">
     <script src="popupNew.js"></script>
   </head>
 
   <body>
     <h1 id="head">Open the SF tab</h1>
+  <div id=top-flex>
     <div class="top">
+      <h4>COPY options</h4>
       <button class="btn" id="parse">Parse and copy</button>
-      <button class="btn" id="copy">Copy for additional</button>
-      <button class="btn" id="paste">Paste(additional)</button>
+      <button class="btn" id="sf">SF+TRELLO</button>
+    </div>
+    <div class="top">
+      <h4>Options for additional</h4>
+        <button class="btn" id="copy">Copy(additional)</button>
+        <button class="btn" id="paste">Paste(additional)</button>
+    </div>
     </div>
     <div>
       <div class="form"><h4>Trello</h4><input type="text" id="trello" size="50"></div>

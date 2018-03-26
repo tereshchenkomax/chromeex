@@ -1,0 +1,70 @@
+body {
+margin: 10px;
+white-space: nowrap;
+min-width: 340px;
+text-align: center;
+}
+
+h1 {
+font-size: 15px;
+}
+h4{
+	margin: 0 0;
+}
+
+input {
+height: 2em;
+align-self: center;
+margin: 0 2px;
+font-size: 12px;
+border-radius: 5px;
+}
+
+.top {
+width: 50%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.btn {
+background: #fc2161;
+background-image: linear-gradient(to bottom, #fc2161, #fc2161);
+-webkit-border-radius: 28;
+-moz-border-radius: 28;
+border-radius: 2px;
+font-family: 'Montserrat', arial, sans-serif;
+color: #ffffff;
+font-size: 18px;
+padding: 10px 20px;
+margin: 5px 20px;
+text-decoration: none;
+}
+
+.btn:hover {
+background: #3cb0fd;
+background-image: linear-gradient(to bottom, #fc2161, #3498db);
+text-decoration: none;
+}
+
+.form {
+display: flex;
+justify-content: space-between;
+}
+
+#top-flex{
+display: flex;
+}
+
+#message {
+height: 200px;
+width: 300px;
+word-break: break-word;
+}
+
+#head {
+text-align: center;
+font-weight: bold;
+font-size: 20px;
+border: 1px solid black;
+}
