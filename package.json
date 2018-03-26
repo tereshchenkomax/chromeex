@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "content-script.js",
-  "dependencies": {
-    "eslint": "^4.16.0"
-  },
-  "devDependencies": {},
+  "dependencies": {},
+  "devDependencies": {"eslint": "^4.16.0"},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

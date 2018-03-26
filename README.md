@@ -1,0 +1,2 @@
+This extension is created to speed up the routine copy/pasting process when the AM is working is Salesforce. It helps to: 
+1)Copy stage server URL+Credentials, Trello board url and paste these values to the letter text. After that, everything is copying to the clipboard.
