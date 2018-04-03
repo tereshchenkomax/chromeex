@@ -12,6 +12,8 @@ function varInit() {
 	var taburl;
 }
 
+
+
 function injectVar(variable) {
 	chrome.tabs.executeScript({
 		code: `var values = ${JSON.stringify(variable)};`
@@ -41,6 +43,10 @@ function checkTheTab() {
 			return true;
 		} else {
 			openSF();
+			parse.disabled = true;
+			sf.disabled = true;
+			copy.disabled = true; 
+			paste.disabled = true;
 			return false;
 		}
 	});
@@ -113,7 +119,6 @@ Our team uses a simple and effective way to deliver your screenshot feedback dir
 http://do.ready-for-feedback.com/manuals/WLA_Userback_Manual.pdf\n
 Let us know when you are done with reviewing the website and we will get down to work on your feedback.\n
 If you want to follow the process of work on the requested edits you may join this Trello board - ${trello.value}\n
-If you want to have a quick call to review the site together you may pick a suitable time for the call in my calendar - https://app.hubspot.com/meetings/maxim-t\n
 One important note: due to our policy, the final invoice for the project will be created two weeks after the dev link is delivered. So, please send us your feedback at the earliest convenience.\n
 Looking forward to hearing from you soon!\n
 Best regards,`;
@@ -134,7 +139,7 @@ Best regards,`;
 }
 
 function openSF() {
-	head.innerHTML = "Open the SF window first";
+	head.innerHTML = "Open the Salesforce tab";
 	head.style.color = "red";
 	setTimeout(() => {head.style.color = "black";}, 2000);
 }
