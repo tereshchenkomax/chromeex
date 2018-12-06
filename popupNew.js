@@ -1,7 +1,6 @@
 class Main {
 	constructor() {
 		this.state = {};
-		this.getTabUrl = this.getTabUrl.bind(this);
 	}
 
 	init() {
@@ -20,7 +19,6 @@ class Main {
 			.then((res) => {
 				let testUrl = /na[0-9]{2}\.salesforce\.com/;
 				if (testUrl.test(res)) {
-					debugger;
 					this.state.tabUrl = res;
 					return true;
 				} else {
@@ -41,6 +39,9 @@ class Main {
 		});
 	}
 
+	clickHandlerCopy() {
+		this.checkTheTab() ? injectScript("copy-script.js") : openSF();
+	}
 
 	copyAndParse() {
 		$("parse").addEventListener("click", clickHandlerParse);
@@ -83,13 +84,7 @@ function getFromStorage() {
 	});
 }
 
-function clickHandlerCopy() {
-	if (checkTheTab()) {
-		injectScript("copy-script.js");
-	} else {
-		openSF();
-	}
-}
+
 
 function clickHandlerPaste() {
 	getFromStorage()
