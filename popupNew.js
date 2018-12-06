@@ -1,7 +1,7 @@
 class Main {
 	constructor() {
 		this.state = {};
-		this.getTabUrl().bind(this);
+		this.getTabUrl = this.getTabUrl.bind(this);
 	}
 
 	init() {
@@ -20,6 +20,7 @@ class Main {
 			.then((res) => {
 				let testUrl = /na[0-9]{2}\.salesforce\.com/;
 				if (testUrl.test(res)) {
+					debugger;
 					this.state.tabUrl = res;
 					return true;
 				} else {
