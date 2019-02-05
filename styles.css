@@ -22,6 +22,7 @@ input {
 	border: 1px solid black;
 	margin: 1px;
 	box-shadow: 1px 1px 1px #000;
+	border-bottom: 2px solid transparent;
 }
 
 input:focus {
@@ -43,6 +44,8 @@ button {
 	box-shadow:  3px 5px 11px rgba(0,0,0,.4);
 	text-decoration: none;
 	position: relative;
+	animation: moveBot .5s ease-out .3s;
+	animation-fill-mode: backwards;
 }
 
 button:hover:enabled {
@@ -119,6 +122,17 @@ button:disabled {
 	0% {
 		opacity: .1;
 		transform: translateY(-20px);		
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes moveBot {
+	0% {
+		opacity: .0;
+		transform: translateY(20px);		
 	}
 	100% {
 		opacity: 1;
