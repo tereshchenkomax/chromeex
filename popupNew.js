@@ -11,6 +11,9 @@ class Main {
 		this.injectScript = this.injectScript.bind(this);
 		this.clickHandlerSF = this.clickHandlerSF.bind(this);
 		this.clickHandlerParse = this.clickHandlerParse.bind(this);
+		this.clickHandlerPaste = this.clickHandlerPaste.bind(this);
+		this.clickHandlerCopy = this.clickHandlerCopy.bind(this);
+		this.init();
 	}
 
 	init() {
@@ -51,8 +54,8 @@ class Main {
 			chrome.tabs.executeScript({
 				file: filename
 			}, (results) => {
-				if (results != null) {
-					chrome.storage.local.set({"value": results}, function () {
+				if (results[0] != null) {
+					chrome.storage.local.set({"value": results}, () => {
 						console.log(`results: ${results}`);
 					});
 				}
@@ -70,7 +73,9 @@ class Main {
 	openSF() {
 		head.innerHTML = "Open the Salesforce tab";
 		head.style.color = "red";
-		setTimeout(() => {head.style.color = "black";}, 2000);
+		setTimeout(() => {
+			head.style.color = "black";
+		}, 2000);
 	}
 
 	getFromStorage() {
@@ -78,7 +83,8 @@ class Main {
 			chrome.storage.local.get(null, (results) => {
 				if (results.value[0] !== null) {
 					this.state.value = results.value[0];
-					res(value);
+					res(this.state.value);
+					console.log(this.state.value)
 				}
 			});
 		});
@@ -96,13 +102,13 @@ class Main {
 	}
 
 	clickHandlerParse() {
-		let {ready,trello,password,message,head} = this.state;
+		let {ready, trello, password, message, head} = this.state;
 		this.injectScript("content-script.js")
 			.then((results) => {
 				ready.value = results[0][0];
 				trello.value = results[0][1];
 				password.value = results[0][2];
-				let text = `Hello {Contact First name},\n
+				message.value = `Hello {Contact First name},\n
 Your project is completed and ready for review.\n
 In order to review the site, please go to the following links:\n
 ${ready.value}\n
@@ -117,7 +123,6 @@ The instructions on how it works can be found in the first column.\n
 One important note: due to our policy, the final invoice for the project will be created two weeks after the dev link is delivered. So, please send us your feedback at the earliest convenience.\n
 Looking forward to hearing from you soon!\n
 Best regards,`;
-				message.value = text;
 				message.select();
 				try {
 					let successful = document.execCommand("copy");
@@ -134,6 +139,7 @@ Best regards,`;
 	}
 
 	clickHandlerCopy() {
+		head.innerHTML = "Copied";
 		this.injectScript("copy-script.js");
 	}
 
@@ -169,8 +175,7 @@ Best regards,`;
 let $ = (id) => document.getElementById(id);
 
 document.addEventListener("DOMContentLoaded", () => {
-	let basicclass = new Main();
-	basicclass.init();
-	basicclass.copyAndParse();
+	let mainClass = new Main();
+	mainClass.copyAndParse();
 });
 
