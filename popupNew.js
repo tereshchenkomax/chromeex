@@ -67,7 +67,7 @@ class Main {
 			chrome.tabs.executeScript({
 				file: filename
 			}, (results) => {
-				if (results[0] != null) {
+				if (typeof results !== "undefined") {
 					chrome.storage.local.set({"value": results});
 				}
 				res(results);
@@ -92,7 +92,7 @@ class Main {
 	getFromStorage() {
 		return new Promise(res => {
 			chrome.storage.local.get(null, (results) => {
-				if (results.value[0] !== 'undefined') {
+				if (results.value[0] !== "undefined") {
 					this.state.value = results.value[0];
 					res(this.state.value);
 					console.log(`this.state.value = ${this.state.value}`);
@@ -176,29 +176,26 @@ Best regards,`;
 
 	clickHandlerLogin() {
 		this.injectScript("copy-script.js")
-			.then(this.getFromStorage()
-				.then(value => {
-					const val = value;
-					console.log(`value from storage ${val}`);
-					const newURL = value[2] + "wp-login.php";
-
-					chrome.tabs.create({url: newURL, active: false}, () => {
-							chrome.tabs.query({url: newURL}, result => {
-								let idOfTab = result[0].id;
-								chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-									if (tabId == idOfTab && changeInfo.status == "complete") {
-										console.log('loading of a new tab has been completed ');
-										chrome.tabs.executeScript(idOfTab,{code: `var values = ${JSON.stringify(val)};`});
-										chrome.tabs.executeScript(idOfTab, {file: "login-script.js"});
-									}
-								})
-							});
-						}
-					);
-				})
-				.catch((Error) => {
-					console.log(Error);
-				}));
+			.then(results => {
+				const val = results[0];
+				const newURL = val.doready + "wp-login.php";
+				// console.log(results,newURL);
+				chrome.tabs.create({url: newURL, active: false}, () => {
+					chrome.tabs.query({url: newURL}, result => {
+						let idOfTab = result[0].id;
+						chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+							if (tabId == idOfTab && changeInfo.status == "complete") {
+								console.log("loading of a new tab has been completed ");
+								chrome.tabs.executeScript(idOfTab, {code: `var values = ${JSON.stringify(val)};`});
+								chrome.tabs.executeScript(idOfTab, {file: "login-script.js"});
+							}
+						});
+					});
+				});
+			})
+			.catch((Error) => {
+				console.log(Error);
+			});
 	}
 
 	copyAndParse() {
