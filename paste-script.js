@@ -1,5 +1,5 @@
 (() => {
-	// console.log(values);
+	console.log(values);
 	let bk = document.getElementById("00NF000000ClNga");
 	let trello = document.getElementById("00NF000000Bi4WC");
 	let dev = document.getElementById("00NF000000D23c6");
@@ -11,7 +11,7 @@
 	trello.value = values[0];
 	bk.value = values[1];
 	dev.value = values[2];
-	live.value = values[3]
+	live.value = values[3];
 	name.value = values[4];
 	pass.value = values[5];
 	checkbox.checked = true;
