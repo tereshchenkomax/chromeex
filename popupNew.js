@@ -13,6 +13,7 @@ class Main {
 		this.clickHandlerParse = this.clickHandlerParse.bind(this);
 		this.clickHandlerPaste = this.clickHandlerPaste.bind(this);
 		this.clickHandlerCopy = this.clickHandlerCopy.bind(this);
+		this.clickHandlerLogin = this.clickHandlerLogin.bind(this);
 		this.init();
 	}
 
@@ -32,12 +33,24 @@ class Main {
 				if (testUrl.test(res)) {
 					this.state.tabUrl = res;
 					return true;
-				} else {
-					this.openSF();
-					$("parse").disabled = $("sf").disabled = $("copy").disabled = $("paste").disabled = true;
-					return false;
 				}
+				this.openSF();
+				$("parse").disabled = $("sf").disabled = $("copy").disabled = $("paste").disabled = $("login-button").disabled = true;
+				return false;
 			});
+	}
+
+	createTab(url) {
+		return new Promise(resolve => {
+			chrome.tabs.create({url}, async tab => {
+				chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
+					if (info.status === "complete" && tabId === tab.id) {
+						chrome.tabs.onUpdated.removeListener(listener);
+						resolve(tab);
+					}
+				});
+			});
+		});
 	}
 
 	getTabUrl() {
@@ -55,9 +68,7 @@ class Main {
 				file: filename
 			}, (results) => {
 				if (results[0] != null) {
-					chrome.storage.local.set({"value": results}, () => {
-						console.log(`results: ${results}`);
-					});
+					chrome.storage.local.set({"value": results});
 				}
 				res(results);
 			});
@@ -81,10 +92,10 @@ class Main {
 	getFromStorage() {
 		return new Promise(res => {
 			chrome.storage.local.get(null, (results) => {
-				if (results.value[0] !== null) {
+				if (results.value[0] !== 'undefined') {
 					this.state.value = results.value[0];
 					res(this.state.value);
-					console.log(this.state.value)
+					console.log(`this.state.value = ${this.state.value}`);
 				}
 			});
 		});
@@ -163,11 +174,39 @@ Best regards,`;
 			});
 	}
 
+	clickHandlerLogin() {
+		this.injectScript("copy-script.js")
+			.then(this.getFromStorage()
+				.then(value => {
+					const val = value;
+					console.log(`value from storage ${val}`);
+					const newURL = value[2] + "wp-login.php";
+
+					chrome.tabs.create({url: newURL, active: false}, () => {
+							chrome.tabs.query({url: newURL}, result => {
+								let idOfTab = result[0].id;
+								chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+									if (tabId == idOfTab && changeInfo.status == "complete") {
+										console.log('loading of a new tab has been completed ');
+										chrome.tabs.executeScript(idOfTab,{code: `var values = ${JSON.stringify(val)};`});
+										chrome.tabs.executeScript(idOfTab, {file: "login-script.js"});
+									}
+								})
+							});
+						}
+					);
+				})
+				.catch((Error) => {
+					console.log(Error);
+				}));
+	}
+
 	copyAndParse() {
 		$("parse").addEventListener("click", this.clickHandlerParse);
 		$("copy").addEventListener("click", this.clickHandlerCopy);
 		$("paste").addEventListener("click", this.clickHandlerPaste);
 		$("sf").addEventListener("click", this.clickHandlerSF);
+		$("login-button").addEventListener("click", this.clickHandlerLogin);
 	}
 
 }
@@ -178,4 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let mainClass = new Main();
 	mainClass.copyAndParse();
 });
+
+
+
 

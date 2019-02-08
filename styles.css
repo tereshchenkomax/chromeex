@@ -17,7 +17,6 @@ h1 {
 input {
 	height: 2em;
 	align-self: center;
-	margin: 0 2px;
 	font-size: 12px;
 	border: 1px solid black;
 	margin: 1px;
@@ -93,9 +92,13 @@ button:disabled {
 	justify-content: space-between;
 }
 
-#top-flex{
+.flex{
 	display: flex;
 	padding: 0 0 15px;
+}
+
+.center{
+	justify-content: center;
 }
 
 .form {
@@ -116,6 +119,10 @@ button:disabled {
 	font-size: 20px;
 	border: 1px solid black;
 	animation: moveTop 1s ease-out;
+}
+
+#login-button {
+	padding: 25px;
 }
 
 @keyframes moveTop {
