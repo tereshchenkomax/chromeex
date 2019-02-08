@@ -3,7 +3,7 @@
 
   "name": "WLA help extension",
   "description": "This extension is created to speed up the routine copy/pasting process when the AM is working is Salesforce. ",
-  "version": "1.5",
+  "version": "1.6",
 
   "browser_action": {
     "default_icon": {
