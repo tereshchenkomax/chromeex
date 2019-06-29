@@ -27,7 +27,7 @@ class Main {
 	}
 
 	checkTheTab() {
-		this.getTabUrl()
+		this.getCurrentTabUrl()
 			.then((res) => {
 				let testUrl = /na[0-9]{2}\.salesforce\.com/;
 				if (testUrl.test(res)) {
@@ -40,20 +40,7 @@ class Main {
 			});
 	}
 
-	createTab(url) {
-		return new Promise(resolve => {
-			chrome.tabs.create({url}, async tab => {
-				chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
-					if (info.status === "complete" && tabId === tab.id) {
-						chrome.tabs.onUpdated.removeListener(listener);
-						resolve(tab);
-					}
-				});
-			});
-		});
-	}
-
-	getTabUrl() {
+	getCurrentTabUrl() {
 		return new Promise(res => {
 			chrome.tabs.query({active: true, currentWindow: true}, tabs => {
 				let taburl = tabs[0].url;
@@ -123,7 +110,7 @@ class Main {
 Your project is completed and ready for review.\n
 In order to review the site, please go to the following links:\n
 ${ready.value}\n
-${ready.value}/wp-admin \n
+${ready.value}wp-admin \n
 Username: Welcome
 Password: ${password.value}\n
 Our team uses a simple and effective way to deliver your screenshot feedback directly to us for review using a tool called Userback. It will help you to save much time giving us your feedback. The instructions on getting started are below.\n
@@ -161,8 +148,8 @@ Best regards,`;
 				this.state.message.value = `${this.state.trello.value} \n ___ \n ${this.state.tabUrl}`;
 				this.state.message.select();
 				try {
-					var successful = document.execCommand("copy");
-					var msg = successful ? "successful" : "unsuccessful";
+					let successful = document.execCommand("copy");
+					let msg = successful ? "successful" : "unsuccessful";
 					this.state.head.innerHTML = `Copying text command was ${msg}`;
 				} catch (err) {
 					this.state.head.innerHTML = "Oops, unable to copy";
@@ -179,15 +166,14 @@ Best regards,`;
 			.then(results => {
 				const val = results[0];
 				const newURL = val.doready + "wp-login.php";
-				// console.log(results,newURL);
 				chrome.tabs.create({url: newURL, active: false}, () => {
 					chrome.tabs.query({url: newURL}, result => {
 						let idOfTab = result[0].id;
-						chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+						chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
 							if (tabId == idOfTab && changeInfo.status == "complete") {
-								console.log("loading of a new tab has been completed ");
 								chrome.tabs.executeScript(idOfTab, {code: `var values = ${JSON.stringify(val)};`});
 								chrome.tabs.executeScript(idOfTab, {file: "login-script.js"});
+								chrome.tabs.onUpdated.removeListener(listener);
 							}
 						});
 					});
