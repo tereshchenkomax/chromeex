@@ -4,7 +4,7 @@
   "description": "",
   "main": "content-script.js",
   "dependencies": {},
-  "devDependencies": {"eslint": "^4.16.0"},
+  "devDependencies": {"eslint": "^8.38.0"},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
